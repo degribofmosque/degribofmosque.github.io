@@ -148,6 +148,26 @@ footer{background:var(--deep);color:#c6d8d5;font-size:14px}
 .tmf span{color:#fff;font:700 54px Lora,serif;opacity:.9}
 .tmf img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center 25%}
 #team{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}#team .tm{flex:0 1 200px}@media(max-width:600px){#team .tm{flex:0 1 calc(50% - 8px)}}
+/* === Header ringkas (ref. desain Mas Shiddiq) === */
+.tb{padding:10px max(5vw,16px)!important;gap:28px!important}
+.tb .brand{font-size:21px!important}.tb .brand svg{width:34px;height:34px}
+.info{gap:10px!important}.ib{width:34px!important;height:34px!important;box-shadow:none!important}.ib svg{width:16px;height:16px}
+.info small{font-size:11.5px!important}.info b{font:600 14px "Plus Jakarta Sans",sans-serif!important}
+header{margin-top:0!important;padding:6px max(5vw,16px)!important}
+.nav{padding:6px 8px!important;gap:8px!important;box-shadow:0 6px 18px #0a35371a!important}
+.menu a{font-size:15px!important;padding:8px 13px!important}
+.navdon{min-height:38px!important;padding:0 18px!important;font-size:14px!important}
+.navakun{width:38px!important;height:38px!important}
+.navtog{display:none;width:40px;height:40px;border:0;border-radius:8px;background:var(--soft);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+@media(max-width:860px){
+.navtog{display:grid;place-items:center}
+.nav{flex-wrap:nowrap!important;position:relative}
+.menu{display:none!important;position:absolute;top:calc(100% + 6px);left:0;right:0;flex-direction:column;gap:2px!important;margin:0!important;padding:8px;background:var(--teal);border-radius:10px;box-shadow:0 12px 30px #0a353740}
+.nav.buka .menu{display:flex!important}
+.menu a{color:#fff!important;padding:12px 14px!important}
+.menu a.on{background:#ffffff22!important}
+.navr{margin-left:auto;flex-wrap:nowrap!important}
+}
 </style>
 </head>
 <body>
@@ -157,7 +177,7 @@ footer{background:var(--deep);color:#c6d8d5;font-size:14px}
 <div class="info"><span class="ib"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7.3V17h16V7.3z"/></svg></span><div><small>Email</small><b><a class="s-maillink" style="color:inherit;text-decoration:none"><span class="s-email"></span></a></b></div></div>
 <div class="info"><span class="ib"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></span><div><small>Wilayah layanan</small><b class="s-wilayah"></b></div></div>
 </div></div>
-<header><nav class="nav"><div class="menu" id="menu"></div><div class="navr"><a class="btn gold navdon" href="#donasi">Donasi Sekarang</a><a class="soc navakun" href="#dashboard" aria-label="Akun saya" title="Akun saya"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg></a></div></nav></header>
+<header><nav class="nav"><button class="navtog" type="button" aria-label="Buka menu" onclick="this.parentNode.classList.toggle('buka')">☰</button><div class="menu" id="menu"></div><div class="navr"><a class="btn gold navdon" href="#donasi">Donasi Sekarang</a><a class="soc navakun" href="#dashboard" aria-label="Akun saya" title="Akun saya"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg></a></div></nav></header>
 <main>
 
 <section class="page" id="p-beranda">
@@ -317,7 +337,7 @@ const fill=(c,f)=>document.querySelectorAll(c).forEach(f);
 fill('.s-admin',e=>e.textContent=S.admin);fill('.s-wa',e=>e.textContent=S.wa);fill('.s-walink',e=>e.href=wa);fill('.s-wilayah',e=>e.textContent=S.wilayah);
 fill('.s-email',e=>e.textContent=S.email);fill('.s-maillink',e=>e.href='mailto:'+S.email);
 fill('.s-ig',e=>e.href=S.instagram);fill('.s-tt',e=>e.href=S.tiktok);fill('.s-yt',e=>e.href=S.youtube);
-document.getElementById('menu').innerHTML=pages.map(([h,t])=>`<a href="#${h}" data-h="${h}">${t}</a>`).join('');
+document.getElementById('menu').addEventListener('click',()=>document.querySelector('.nav').classList.remove('buka'));document.getElementById('menu').innerHTML=pages.map(([h,t])=>`<a href="#${h}" data-h="${h}">${t}</a>`).join('');
 document.getElementById('stats').innerHTML=[[DATA.set.stat_masjid,'masjid & musholla dibantu'],[DATA.set.stat_kegiatan,'kegiatan selesai'],[DATA.set.stat_donatur,'donatur'],[DATA.set.stat_lulus,'masjid & musholla lulus mandiri']].filter(([b])=>+b>0).map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
 const IC={m:'<svg viewBox="0 0 96 96" width="92" height="92" fill="none" stroke-width="2.5" stroke-linejoin="round"><path d="M14 84h68" stroke="#13292b"/><path d="M22 84V52h52v32" fill="#e9f2ef" stroke="#13292b"/><path d="M30 52a18 18 0 0 1 36 0z" fill="#c9a85a" stroke="#13292b"/><path d="M48 34v-8" stroke="#13292b"/><path d="M44 84V70a4 4 0 0 1 8 0v14" fill="#0f4c4f" stroke="#13292b"/><path d="M76 84V40h8v44" fill="#e9f2ef" stroke="#13292b"/><path d="M76 40l4-8 4 8" fill="#c9a85a" stroke="#13292b"/></svg>',
 w:'<svg viewBox="0 0 96 96" width="92" height="92" fill="none" stroke-width="2.5" stroke-linejoin="round"><path d="M14 84h68" stroke="#13292b"/><path d="M28 84V44a20 20 0 0 1 40 0v40" fill="#e9f2ef" stroke="#13292b"/><path d="M38 84V58a10 10 0 0 1 20 0v26" fill="#0f4c4f" stroke="#13292b"/><path d="M48 24a6 6 0 1 0 6 6 7 7 0 0 1-6-6z" fill="#c9a85a" stroke="#13292b"/><path d="M20 30c4 6 4 10 0 14M76 30c-4 6-4 10 0 14" stroke="#5fb3ad"/></svg>',
